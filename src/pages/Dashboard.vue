@@ -28,12 +28,12 @@ export default {
   data() {
     return {
       columns: [
-        { name: "Tracking Number", valueKey: "TrackingNumber", type: "text" },
-        { name: "Consignee Name", valueKey: "ConsigneeName", type: "text" },
-        { name: "Consignee Address", valueKey: "ConsigneeAddressDisplay", type: "text" },
-        { name: "Consignee Number", valueKey: "ConsigneeNumber", type: "text" },
-        { name: "Payment Type", valueKey: "PaymentType", type: "text" },
-        { name: "Order Details", valueKey: "OrderDetailsDisplay", type: "html" },
+        { name: "Tracking Number", valueKey: "TrackingNumber", type: "text", width: 20 },
+        { name: "Consignee Name", valueKey: "ConsigneeName", type: "text", width: 20 },
+        { name: "Consignee Address", valueKey: "ConsigneeAddressDisplay", type: "text", width: 20 },
+        { name: "Consignee Number", valueKey: "ConsigneeNumber", type: "text", width: 10 },
+        { name: "Payment Type", valueKey: "PaymentType", type: "text", width: 10 },
+        { name: "Order Details", valueKey: "OrderDetailsDisplay", type: "html", width: 20 },
 
       ],
       items: [],
@@ -44,14 +44,18 @@ export default {
     retrieveOrders() {
       OrderDataService.getAll()
         .then(response => {
-          this.items = response.data.data;
-          this.items.map((x) => {
-            x.ConsigneeAddressDisplay = x.ConsigneeAddress + " " + x.ConsigneeProvince + " " + x.ConsigneeCountry + " " + x.ConsigneeCity + ", " + x.ConsigneePostalCode
-            x.OrderDetailsDisplay = "<span> Width : " + x.Width + " " + this.measurement[1] + " </span></br>" +
-              "<span> Height : " + x.Height + " " + this.measurement[1] +" </span></br>" +
-              "<span> Length : " + x.Length + " " + this.measurement[1] +" </span></br>" +
-              "<span> Weight : " + x.Weight + " " + this.measurement[0] +" </span>";
-          })
+
+          if(response.data.data !== null){
+              this.items = response.data.data;
+              this.items.map((x) => {
+              x.ConsigneeAddressDisplay = x.ConsigneeAddress + " " + x.ConsigneeProvince + " " + x.ConsigneeCountry + " " + x.ConsigneeCity + ", " + x.ConsigneePostalCode
+              x.OrderDetailsDisplay = "<span> Width : " + x.Width + " " + this.measurement[1] + " </span></br>" +
+                "<span> Height : " + x.Height + " " + this.measurement[1] +" </span></br>" +
+                "<span> Length : " + x.Length + " " + this.measurement[1] +" </span></br>" +
+                "<span> Weight : " + x.Weight + " " + this.measurement[0] +" </span>";
+            })
+          }
+          
         })
         .catch(e => {
           console.log(e);
