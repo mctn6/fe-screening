@@ -50,9 +50,7 @@ export default {
   methods: {
     handleInput(event) {
       if (this.type === "numeric") {
-        this.localValue = this.localValue.replace(/[^0-9.]/g, "");
-      } else if (this.type === "measurement") {
-        this.localValue = this.localValue.replace(/[^0-9.]/g, "");
+        this.localValue = this.localValue.replace(/[^0-9]/g, "");
       }
 
       this.$emit("update:value", event);

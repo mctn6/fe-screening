@@ -18,12 +18,12 @@
       <LabelHeader label="Order Details" class="mt-8" />
 
       <div class="flex space-x-4">
-        <TextField label="Height (m)" v-model="this.height" type="measurement" @input="handleInput('height', $event)"/>
-        <TextField label="Weight (kg)" v-model="this.weight" type="measurement" @input="handleInput('weight', $event)"/>
+        <TextField label="Height (m)" v-model="this.height" :is-required="true"  type="numeric" @input="handleInput('height', $event)"/>
+        <TextField label="Weight (kg)" v-model="this.weight" :is-required="true"  type="numeric" @input="handleInput('weight', $event)"/>
       </div>
       <div class="flex space-x-4">
-        <TextField label="Length (m)" v-model="this.length" type="measurement" @input="handleInput('length', $event)"/>
-        <TextField label="Width (m)" v-model="this.width" type="measurement" @input="handleInput('width', $event)"/>
+        <TextField label="Length (m)" v-model="this.length" :is-required="true"  type="numeric" @input="handleInput('length', $event)"/>
+        <TextField label="Width (m)" v-model="this.width" :is-required="true"  type="numeric" @input="handleInput('width', $event)"/>
       </div>
 
       <Dropdown label="Payment Type" :options="paymentTypeOptions" :value="this.paymentType" @selected="handleSelectedOption('paymentType', $event)"/>

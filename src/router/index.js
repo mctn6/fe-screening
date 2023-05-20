@@ -22,6 +22,7 @@ const routes = [
         meta: { layout: 'DefaultLayout', requiresAuth: true },
         component: AddOrder,
     },
+    { path: '/:pathMatch(.*)', name: 'Login', component: Login },
 ]
 
 const router = createRouter({
