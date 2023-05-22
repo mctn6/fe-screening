@@ -87,7 +87,6 @@ export default {
 
       OrderDataService.create(data)
         .then((response) => {
-          console.log("response", response);
           this.$router.push("/dashboard");
         })
         .catch((e) => {

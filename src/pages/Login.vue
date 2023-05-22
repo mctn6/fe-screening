@@ -9,7 +9,7 @@
         <div class="mb-4">
           <TextField v-model="password" label="Password" type="password" :is-required="true" />
         </div>
-        <Button text="Login" size="full" type="submit" @button-click="handleLoginClick" />
+          <Button text="Login" size="full" type="submit" @button-click="handleLoginClick" :is-disabled="isDisabled" />
       </form>
     </div>
   </div>
@@ -26,6 +26,7 @@ export default {
     return {
       username: "",
       password: "",
+      isDisabled: false,
     };
   },
   components: {
@@ -35,24 +36,26 @@ export default {
 
   methods: {
     handleLoginClick() {
-      var data = {
-        username: this.username,
-        password: this.password,
-      };
+      if (this.username !== "" && this.password !== "") {
+        this.isDisabled = true;
 
-      AuthDataService.create(data)
-        .then((response) => {
-          sessionStorage.setItem("session", response.data.session);
-          sessionStorage.setItem("user", response.data.user);
+        var data = {
+          username: this.username,
+          password: this.password,
+        };
 
-          this.$router.push("/dashboard");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-    handleInput(field, event) {
-      this[field] = event.target?.value;
+        AuthDataService.create(data)
+          .then((response) => {
+            sessionStorage.setItem("session", response.data.session);
+            sessionStorage.setItem("user", response.data.user);
+
+            this.$router.push("/dashboard");
+          })
+          .catch((e) => {
+            this.isDisabled = true;
+            console.log(e);
+          });
+      }
     },
   },
 };
