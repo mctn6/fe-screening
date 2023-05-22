@@ -4,29 +4,12 @@
       <h2 class="text-2xl mb-4">Login</h2>
       <form @submit.prevent="login">
         <div class="mb-4">
-          <TextField
-            v-model="username"
-            label="Username"
-            type="text"
-            :is-required="true"
-            @input="handleInput('username', $event)"
-          />
+          <TextField v-model="username" label="Username" type="text" :is-required="true" />
         </div>
         <div class="mb-4">
-          <TextField
-            v-model="password"
-            label="Password"
-            type="password"
-            :is-required="true"
-            @input="handleInput('password', $event)"
-          />
+          <TextField v-model="password" label="Password" type="password" :is-required="true" />
         </div>
-        <Button
-          text="Login"
-          size="full"
-          type="submit"
-          @button-click="handleLoginClick"
-        />
+        <Button text="Login" size="full" type="submit" @button-click="handleLoginClick" />
       </form>
     </div>
   </div>
@@ -59,8 +42,8 @@ export default {
 
       AuthDataService.create(data)
         .then((response) => {
-          sessionStorage.setItem('session', response.data.session);
-          sessionStorage.setItem('user', response.data.user);
+          sessionStorage.setItem("session", response.data.session);
+          sessionStorage.setItem("user", response.data.user);
 
           this.$router.push("/dashboard");
         })

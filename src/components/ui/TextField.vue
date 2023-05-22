@@ -1,10 +1,8 @@
 <template lang="">
   <div class="my-2">
-    <label :for="label" class="block mb-2 text-sm font-semibold text-gray-700"
-      >{{ label }} <span v-if="isRequired" class="text-red-500">*</span></label
-    >
+    <label :for="label" class="block mb-2 text-sm font-semibold text-gray-700">{{ label }} <span v-if="isRequired" class="text-red-500">*</span></label>
     <input
-      v-model="localValue"
+      v-model="value"
       :id="label"
       :type="type"
       @input="handleInput($event.target.value)"
@@ -23,10 +21,9 @@ export default {
     },
     type: {
       type: String,
-      required: true,
       default: "text",
     },
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -37,25 +34,23 @@ export default {
   },
   data() {
     return {
-      localValue: this.value,
+      value: this.modelValue,
       showError: false,
       errorMessage: "",
     };
   },
   watch: {
-    value(newValue) {
-      this.localValue = newValue;
+    modelValue(newValue) {
+      this.value = newValue;
     },
   },
   methods: {
     handleInput(event) {
       if (this.type === "numeric") {
-        this.localValue = this.localValue.replace(/[^0-9]/g, "");
+        this.value = this.value.replace(/[^0-9]/g, "");
       }
 
-      this.$emit("update:value", event);
-      this.$emit("input", event);
-
+      this.$emit("update:modelValue", event);
     },
   },
 };
